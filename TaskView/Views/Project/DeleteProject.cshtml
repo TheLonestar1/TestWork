@@ -1,0 +1,14 @@
+﻿@model Guid
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <form method="post" class="form-control">
+        <div class="h4">You really want delete this employer?</div>
+        <input type="hidden" name="id" value="@Model"/>
+        <button class="d-inline btn btn-danger" type="submit" value="true" name="isDelete">Yes</button>
+        <a class="btn btn-primary d-inline" href="~/Home/Index" role="button">No</a>
+    </form>
+</div>

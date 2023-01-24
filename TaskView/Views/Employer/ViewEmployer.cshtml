@@ -1,0 +1,24 @@
+﻿@model TaskView.Model.Employer
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container overflow-hidden">
+  <div class="row gy-5">
+    <div class="col-6">
+      <div class="h3">Name</div>
+      <div class="p-3 border bg-light">@Model.Name</div>
+    </div>
+    <div class="col-6">
+      <div class="h3">Surname</div>
+            <div class="p-3 border bg-light">@Model.Surname</div>
+    </div>
+    <div class="col-6">
+            <div class="h3">Patronymic</div>
+      <div class="p-3 border bg-light">@Model.Patronymic</div>
+    </div>
+  </div>
+</div>

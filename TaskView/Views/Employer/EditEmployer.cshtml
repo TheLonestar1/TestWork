@@ -1,0 +1,35 @@
+﻿@model TaskView.Model.Employer
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<form method="post">
+    <div class="form-group row">
+        <label for="Name" class="col-xs-2 col-form-label">Name project</label>
+        <div class="col-xs-10">
+            <input class="form-control" type="text" id="Name" name="Name" value="@Model.Name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Surname" class="col-xs-2 col-form-label">Surname</label>
+        <div class="col-xs-10">
+            <input class="form-control" type="text" id="Surname" name="Surname" value="@Model.Surname">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Patronymic" class="col-xs-2 col-form-label">Patronymic</label>
+        <div class="col-xs-10">
+            <input class="form-control" type="text" id="Patronymic" name="Patronymic" value="@Model.Patronymic">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10 pt-md-5">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>

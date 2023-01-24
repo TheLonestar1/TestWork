@@ -1,0 +1,82 @@
+﻿@model TaskView.Model.DatabaseContext
+@using Microsoft.AspNetCore.Components.Web
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TaskView</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TaskView.styles.css" asp-append-version="true" />
+</head>
+<div class="text-center">
+    <h1>Projects</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя Проекта</th>
+            <th scope="col">Компания заказчик</th>
+            <th scope="col">Компания Исполнитель</th>
+            <th scope="col">Приоритет</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.projects)
+        {
+            <tr>
+                <th scope="row">1</th>
+                <td><a class="btn btn-primary" href="~/Project/ViewProject/@project.Id" role="button">@project.Name</a></td>
+                <td>@project.NameCompanyOrder</td>
+                <td>@project.NameExecuterCompany</td>
+                <td>@project.priority</td>
+                <td>
+                    <a class="btn btn-danger" href="~/Project/DeleteProject/@project.Id" role="button">Delete</a>
+                </td>
+                <td><a class="btn btn-primary" href="~/Project/EditProject/@project.Id" role="button">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary" href="~/Project/AddProject/" role="button">Add project</a>
+
+<div class="text-center">
+    <h1>Employers</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Patronymic</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employer in Model.employers)
+        {
+            @if (employer.Surname != null)
+            {
+                <tr>
+                    <th scope="row">1</th>
+                    <td><a class="btn btn-primary" href="~/Employer/ViewEmployer/@employer.Id" role="button">@employer.Name</a></td>
+                    <td>@employer.Surname</td>
+                    <td>@employer.Patronymic</td>
+                    <td>
+                        <a class="btn btn-danger" href="~/Employer/DeleteEmployer/@employer.Id" role="button">Delete</a>
+                    </td>
+                    <td><a class="btn btn-primary" href="~/Employer/EditEmployer/@employer.Id" role="button">Edit</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary" href="~/Employer/AddEmployer" role="button">Add employer</a>

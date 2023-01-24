@@ -1,0 +1,82 @@
+﻿@model TaskView.Model.Project
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container overflow-hidden">
+    <div class="row gy-5">
+        <div class="col-6">
+            <div class="h3">Name</div>
+
+            <div class="p-3 border bg-light">@Model.Name</div>
+        </div>
+        <div class="col-6">
+            <div class="h3">Name company orders</div>
+            <div class="p-3 border bg-light">@Model.NameCompanyOrder</div>
+        </div>
+        <div class="col-6">
+            <div class="h3">Name company executer</div>
+            <div class="p-3 border bg-light">@Model.NameExecuterCompany</div>
+        </div>
+        
+            
+        <div class="col-6">
+            <div class="h3">Date range project</div>
+            <div class="p-3 border bg-light">@Model.StartProjectDate.ToString() - @Model.EndProjectDate.ToString()</div>
+        </div>
+        <div class="col-6">
+            <div class="h3">Priority</div>
+            <div class="p-3 border bg-light">@Model.priority</div>
+        </div>
+        <div class="col-6">
+            <div class="h3">
+                Employers
+            </div>
+            @foreach (var employer in Model.Employers)
+            {
+                <div class="p-3 border bg-light">
+                    @employer.Name @employer.Surname @employer.Patronymic
+                    <form method="post">
+                        <input type="hidden" value="true" name="isDelete" />
+                        <input type="hidden" name="name" value="@employer.Name @employer.Surname" />
+                        <input type="hidden" name="project" value=@Model.Id />
+                        <input class="btn-danger" type="submit" value="Delete" />
+                    </form>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<div class="h3">Manager</div>
+
+<form method="post">
+    <input type="hidden" value="@Model.Id" name="project" />
+    <input type="hidden" value="false" name="isDelete" />
+    <p>
+        <select name="name">
+            @foreach (TaskView.Model.Employer worker in ViewBag.employers)
+            {
+                <option>
+                    @worker.Name @worker.Surname
+                </option>
+            }
+        </select><input type="submit" value="Add this employer" />
+    </p>
+    <p></p>
+</form>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @if (Model.Manager != null)
+        {
+            @Model.Manager.Name @Model.Manager.Surname @Model.Manager.Patronymic
+        }
+        dropdown
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item" type="button">Action</button>
+        <button class="dropdown-item" type="button">Another action</button>
+        <button class="dropdown-item" type="button">Something else here</button>
+    </div>
+</div>
