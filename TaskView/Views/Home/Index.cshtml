@@ -1,6 +1,6 @@
-﻿@model TaskView.Model.DatabaseContext
+﻿@model TaskView.Model.ViewFilterList
 @using Microsoft.AspNetCore.Components.Web
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,21 +12,36 @@
 <div class="text-center">
     <h1>Projects</h1>
 </div>
+<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Name: </label>
+        <input name="name" class="form-control" />
 
+        <label class="control-label">Copmany: </label>
+        <select name="company" class="form-control">
+            @foreach(var nameComany in Model.Companies)
+            {
+                <option>@nameComany.Text</option>
+            }
+        </select>
+
+        <input type="submit" value="Filter" class="btn btn-secondary" />
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Имя Проекта</th>
-            <th scope="col">Компания заказчик</th>
-            <th scope="col">Компания Исполнитель</th>
-            <th scope="col">Приоритет</th>
+            <th scope="col">Name project</th>
+            <th scope="col">Name company oredrs</th>
+            <th scope="col">Name company exectuter</th>
+            <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewBag.sortOrder">Priority</a></th>
             <th scope="col">Delete</th>
             <th scope="col">Edit</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var project in Model.projects)
+        @foreach (TaskView.Model.Project project in Model.project)
         {
             <tr>
                 <th scope="row">1</th>
@@ -61,7 +76,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var employer in Model.employers)
+        @foreach (TaskView.Model.Employer employer in ViewBag.employer)
         {
             @if (employer.Surname != null)
             {

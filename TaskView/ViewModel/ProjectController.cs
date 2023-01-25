@@ -44,21 +44,27 @@ namespace TaskView.ViewModel
             
         }
         [HttpPost]
-        public IActionResult ViewProject(string name, Guid  project,bool isDelete)
+        public IActionResult ViewProject(string name, Guid  project,bool isDelete,bool isManager = false)
         {
             Project? NewProject = _databaseContext.projects.FirstOrDefault(p => p.Id == project);
             string[] fio = name.Split(' ');
             Employer employer = _databaseContext.employers.FirstOrDefault(p => p.Name == fio[0] && p.Surname == fio[1]);
-            if (!isDelete)
+            if (!isDelete && !isManager)
             {
                 if (NewProject.Employers.FirstOrDefault(p => p.Id == employer.Id) == null)
                 {
                     NewProject.Employers.Add(employer);
                 }
             }
-            else
+            else if(!isManager)
             {
                 NewProject.Employers.Remove(employer);
+                if (NewProject.Manager != null && employer.Id == NewProject.Manager.Id)
+                    NewProject.Manager = null;
+            }
+            else
+            {
+                NewProject.Manager = employer;
             }
             List<Employer> employers = _databaseContext.employers.ToList();
             foreach(Employer emp in NewProject.Employers)

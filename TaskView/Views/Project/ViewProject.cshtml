@@ -19,8 +19,44 @@
             <div class="h3">Name company executer</div>
             <div class="p-3 border bg-light">@Model.NameExecuterCompany</div>
         </div>
-        
-            
+        <div class="col-6">
+            <div class="h3">Manager</div>
+            <form method="post" class="form-control gy-5">
+                <input type="hidden" value="@Model.Id" name="project" />
+                <input type="hidden" value="false" name="isDelete" />
+                <input type="hidden" value="true" name="isManager" />
+
+                <select name="name" class="form-select">
+                    @if (Model.Manager != null)
+                    {
+                        <option class="dropdown-item-text">@Model.Manager.Name @Model.Manager.Surname @Model.Manager.Patronymic</option>
+                    }
+                    else
+                    {
+                        <option>Select manager</option>
+                    }
+                    @foreach (TaskView.Model.Employer worker in Model.Employers)
+                    {
+                        if (Model.Manager == null)
+                        {
+                            <option class="dropdown-item">
+                                @worker.Name @worker.Surname @worker.Patronymic
+                            </option>
+                        }
+                        else
+                        {
+                            if (worker.Id != Model.Manager.Id)
+                            {
+                                <option class="dropdown-item">
+                                    @worker.Name @worker.Surname @worker.Patronymic
+                                </option>
+                            }
+                        }
+                    }
+                </select><input type="submit" class = "btn-success" value="Change manager" />
+            </form>
+        </div>
+
         <div class="col-6">
             <div class="h3">Date range project</div>
             <div class="p-3 border bg-light">@Model.StartProjectDate.ToString() - @Model.EndProjectDate.ToString()</div>
@@ -66,17 +102,3 @@
     </p>
     <p></p>
 </form>
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @if (Model.Manager != null)
-        {
-            @Model.Manager.Name @Model.Manager.Surname @Model.Manager.Patronymic
-        }
-        dropdown
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button">Something else here</button>
-    </div>
-</div>
